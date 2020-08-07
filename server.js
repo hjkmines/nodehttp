@@ -8,12 +8,18 @@ const todos = [
 
 const server = http.createServer((req, res) => {
     res.statusCode = 404; 
-    res.setHeader('Content-Type', 'application/json'); 
-    res.setHeader('X-Powered-By', 'Node.js')
 
-    res.writeHead(404 {
+    res.writeHead(404, {
         'Content-Type': 'application/json', 
         'X-Powered-By': 'Node.js'
+    })
+
+    let body = []; 
+    req.on('data', chunk => {
+        body.push(chunk); 
+    }).on('end', () => {
+        body = Buffer.concat(body).toString(); 
+        console.log(body); 
     })
 
     res.end(JSON.stringify({
@@ -27,4 +33,10 @@ const PORT = 5000;
 
 server.listen(PORT, () => {
     console.log(`Listening on port ${PORT}`)
+})
+
+const server = http.createServer((req, res) => {
+    res.statusCode = 404; 
+
+    res.end(JSON)
 })
